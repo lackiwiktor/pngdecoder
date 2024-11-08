@@ -45,7 +45,7 @@ typedef struct {
     char interlace;
 } Image;
 
-int read_header(FILE *file) {
+int decode_header(FILE *file) {
     unsigned char bytes[8];
     int i;
     if ((i = fread(bytes, 1, 8, file)) != 8) {
@@ -118,7 +118,7 @@ int decode_chunk_crc(FILE *file, Chunk *chunk) {
     return 0;
 }
 
-Chunk* read_chunk(FILE *file) {
+Chunk* decode_chunk(FILE *file) {
     Chunk *chunk = malloc(sizeof(Chunk));
     if (decode_chunk_length(file, chunk)) return NULL;
     if (decode_chunk_type(file, chunk)) return NULL;
@@ -128,12 +128,12 @@ Chunk* read_chunk(FILE *file) {
 }
 
 void decode_file(FILE *file) {
-    if (read_header(file) != 0) {
+    if (decode_header(file) != 0) {
         return;
     }
     
     Chunk *chunk;
-    while ((chunk = read_chunk(file)) != NULL && strcmp(chunk->type, "IEND") != 0);
+    while ((chunk = decode_chunk(file)) != NULL && strcmp(chunk->type, "IEND") != 0);
 }
 
 int main(int argc, char **argv) {
