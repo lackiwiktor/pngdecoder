@@ -137,12 +137,6 @@ void decode_file(FILE *file) {
 }
 
 int main(int argc, char **argv) {
-    unsigned int number = 0xAABBCCDD;
-    print_byte_order(number);
-    printf("\n");
-    reverse_byte_order(&number);
-    print_byte_order(number);
-
     if (argc < 2) {
         printf("Usage: %s <file>\n", argv[0]);
         return 1;
