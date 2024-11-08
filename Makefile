@@ -1,3 +1,3 @@
 CFLAGS=-Wall -Wextra -std=c11 -pedantic -ggdb
-heap:
+decoder:
 	$(CC) $(CFLAGS) -o decoder decoder.c 
